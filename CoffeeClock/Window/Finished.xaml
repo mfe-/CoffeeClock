@@ -1,0 +1,28 @@
+﻿<Window x:Class="CoffeeClock.Finished"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:CoffeeClock"
+    Title="Finished" WindowState="Maximized" AllowsTransparency="True" WindowStyle="None" ShowInTaskbar="False"
+        Topmost="True" Background="Black" ResizeMode="NoResize" >
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+    </Window.Resources>
+    <Window.Content>
+        <Border BorderBrush="Black" BorderThickness="1">
+            <DockPanel Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="{Binding Path=Notice,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type local:Finished}}}" 
+                 TextBlock.FontSize="120" HorizontalAlignment="Center" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Path=Minutes,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type local:Finished}}}"
+                 TextBlock.FontSize="50" VerticalAlignment="Bottom" />
+                        <TextBlock Text="Minute(n) sind vergangen" VerticalAlignment="Bottom" />
+                    </StackPanel>
+                </StackPanel>
+                <TextBlock Text="Drücken Sie ESC um das Programm zu beenden." DockPanel.Dock="Bottom" TextBlock.FontSize="9" />
+            </DockPanel>
+        </Border>
+    </Window.Content>
+</Window>

@@ -1,0 +1,85 @@
+﻿<Window x:Class="CoffeeClock.StartWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:CoffeeClock"
+    Title="CoffeClock" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        SizeToContent="WidthAndHeight">
+    <Window.Content>
+        <DockPanel>
+            <!--Grundeinstellungen-->
+            <GroupBox Header="Grundeinstellungen" Margin="3" DockPanel.Dock="Top">
+                <DockPanel>
+                    <StackPanel HorizontalAlignment="Left" Orientation="Vertical" DockPanel.Dock="Top" Margin="5">
+                        <TextBlock Text="Woran sollen Sie erinnert werden?" />
+                        <TextBox x:Name="_TextBoxNotice" Width="200" 
+                         Text="{Binding Path=Notice,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type local:StartWindow}}}" />
+                    </StackPanel>
+                    <!--Countdown Stunden - Minuten-->
+                    <StackPanel Orientation="Vertical" DockPanel.Dock="Top" Margin="5">
+                        <TextBlock Text="In wie viel Minuten sollen Sie erinnert werden?"></TextBlock>
+                        <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                            <TextBlock Margin="1" Text="Stunden"></TextBlock>
+                            <TextBox KeyDown="TextBlock_KeyDown" Margin="1" HorizontalAlignment="Left" Width="50"
+                             Text="{Binding Path=Hours,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type local:StartWindow}}}" />
+                            <TextBlock Margin="1" Text="Minuten"></TextBlock>
+                            <TextBox KeyDown="TextBlock_KeyDown" Margin="1" HorizontalAlignment="Left" Width="50" 
+                             Text="{Binding Path=Minutes,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type local:StartWindow}}}" />
+                        </StackPanel>
+                    </StackPanel>
+                </DockPanel>
+            </GroupBox>
+            <!--Programm starten nach ablaufen der Zeit-->
+            <GroupBox Margin="3" DockPanel.Dock="Top">
+                <GroupBox.Header>
+                    <CheckBox Name="_CheckBoxProgrammStarten" DockPanel.Dock="Top" Content="Programm starten" IsChecked="False" Margin="5" />
+                </GroupBox.Header>
+                <GroupBox.Content>
+                    <StackPanel Orientation="Vertical" DockPanel.Dock="Top" Margin="5">
+                        <TextBlock Text="Welches Programm soll nach ablaufen der Zeit gestartet werden?"></TextBlock>
+                        <!--Dateipfad zur Ausführbaren Datei-->
+                        <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                            <TextBox Margin="1" HorizontalAlignment="Left" Width="200" IsEnabled="False"
+                             Text="{Binding Path=FilePath,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type local:StartWindow}}}" />
+                            <Button Content="Durchsuchen" Click="ButtonDurchsuchen_Click" />
+                        </StackPanel>
+                        <!--Parameter-->
+                        <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                            <TextBlock Text="Parameter:" Margin="0 5 0 0"></TextBlock>
+                            <TextBox Margin="0 5 0 0" Width="150" HorizontalAlignment="Left" 
+                    Text="{Binding Path=Parameter,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type local:StartWindow}}}" />
+                        </StackPanel>
+                        <StackPanel.Style>
+                            <Style TargetType="{x:Type StackPanel}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=IsChecked,ElementName=_CheckBoxProgrammStarten,UpdateSourceTrigger=PropertyChanged}" Value="False" >
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Style>
+                    </StackPanel>
+                </GroupBox.Content>
+                <GroupBox.Style>
+                    <Style TargetType="{x:Type GroupBox}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=IsChecked,ElementName=_CheckBoxProgrammStarten,UpdateSourceTrigger=PropertyChanged}" Value="False" >
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </GroupBox.Style>
+            </GroupBox>
+            <Button DockPanel.Dock="Top" Content="Erinnere mich!" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" Click="Button_Click" >
+                <!--<Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=Minutes,UpdateSourceTrigger=PropertyChanged,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type local:StartWindow}}}" Value="">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>-->
+            </Button>
+        </DockPanel>
+    </Window.Content>
+</Window>
