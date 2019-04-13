@@ -6,6 +6,13 @@
     <UseWPF>true</UseWPF>
     <ApplicationIcon>clock.ico</ApplicationIcon>
     <Version>1.1.0</Version>
+    <ApplicationManifest>CoffeeClock.manifest</ApplicationManifest>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+    </None>
+  </ItemGroup>
 
 </Project>
