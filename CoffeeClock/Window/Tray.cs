@@ -16,32 +16,29 @@ namespace CoffeeClock.Window
         {
             Initialize();
         }
-        /// <summary>
-        /// Initialisiert das NotifyIcon
-        /// </summary>
+
         private void Initialize()
         {
             ResourceManager resourceManager = new ResourceManager("CoffeeClock.Properties.Resources", Assembly.GetExecutingAssembly());
 
-            // NotifyIcon erzeugen
+            //create tray icon object
             _notico = new NotifyIcon();
             _notico.Visible = true;
             _notico.Icon = ((System.Drawing.Icon)(resourceManager.GetObject("clock")));
 
-            ContextMenu contextMenu = new ContextMenu();
+            ContextMenuStrip contextMenu = new ContextMenuStrip();
 
-            // Kontextmenüeinträge erzeugen
-            MenuItem menuItem = new MenuItem();
-            menuItem.Index = 1;
+            ToolStripMenuItem menuItem = new ToolStripMenuItem();
+            //menuItem.Index = 1;
             menuItem.Text = "&Beenden";
             menuItem.Click += (sender, e) =>
             {
                 Environment.Exit(0);
             };
 
-            contextMenu.MenuItems.Add(menuItem);
+            contextMenu.Items.Add(menuItem);
 
-            _notico.ContextMenu = contextMenu;
+            _notico.ContextMenuStrip = contextMenu;
 
         }
 
